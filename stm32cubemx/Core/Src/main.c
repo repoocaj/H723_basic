@@ -25,6 +25,12 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#define LOG_MODULE_NAME         app
+#define LOG_LEVEL               LOG_LEVEL_DEBUG
+
+#include "log.h"
+
+#include "debug.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -115,6 +121,9 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+  // Create this as early as possible so that the queue is available to store
+  // messages from other initialization routines
+  log_task_init();
 
   /* USER CODE END Init */
 
@@ -132,6 +141,10 @@ int main(void)
   MX_USB_OTG_HS_USB_Init();
   /* USER CODE BEGIN 2 */
 
+  // Initialize the debug pins after the GPIO is running
+  debug_init();
+
+  LOG_DEBUG("Ready\n");
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -454,10 +467,15 @@ static void MX_GPIO_Init(void)
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
+  uint8_t state = 0;
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    state = !state;
+
+    HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, state);
+
+    HAL_Delay(500);
   }
   /* USER CODE END 5 */
 }
