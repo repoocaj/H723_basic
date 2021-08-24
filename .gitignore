@@ -1,0 +1,12 @@
+/Debug/
+/build/
+tags
+*.log
+.DS_Store
+*__pycache__
+stm32cubemx/Makefile
+*.mxproject
+*.cproject
+*.project
+## vscode ##
+.vscode
