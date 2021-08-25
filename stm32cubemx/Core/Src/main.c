@@ -112,16 +112,19 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
 
-  /* USER CODE END SysInit */
-
-  /* Initialize all configured peripherals */
+  // Move GPIO init earlier so that we can init the debug pins before the other
+  // peripheral initializations.
   MX_GPIO_Init();
-  MX_USART3_UART_Init();
-  MX_OCTOSPI1_Init();
-  /* USER CODE BEGIN 2 */
 
   // Initialize the debug pins after the GPIO is running
   debug_init();
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_USART3_UART_Init();
+  MX_OCTOSPI1_Init();
+  /* USER CODE BEGIN 2 */
 
   external_ram_init(&hospi1);
 
