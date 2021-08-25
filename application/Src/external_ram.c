@@ -100,18 +100,11 @@ static void _dump_regs(const char *descript)
     uint32_t *p = (uint32_t *)ospiHandle->Instance;
 
     LOG_DEBUG("%s\n", descript);
-#if 1
+
     for (uint8_t i = 0; m_regs[i].name != NULL; i++)
     {
         LOG_DEBUG(" % 6s: 0x%08x\n", m_regs[i].name, (uint32_t) *(p + (m_regs[i].offset / 4)));
     }
-#else
-    LOG_DEBUG(" %6s: 0x%08x\n", "CR", ospiHandle->Instance->CR);
-    LOG_DEBUG(" %6s: 0x%08x\n", "DCR1", ospiHandle->Instance->DCR1);
-    LOG_DEBUG(" %6s: 0x%08x\n", "DCR2", ospiHandle->Instance->DCR2);
-    LOG_DEBUG(" %6s: 0x%08x\n", "DCR3", ospiHandle->Instance->DCR3);
-    LOG_DEBUG(" %6s: 0x%08x\n", "DCR4", ospiHandle->Instance->DCR4);
-#endif
 }
 
 #if UNIT_TEST
