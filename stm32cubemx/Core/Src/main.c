@@ -80,6 +80,21 @@ void StartDefaultTask(void *argument);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+static void _dump_ospim_regs(const char *descript)
+{
+    LOG_DEBUG("%s (0x%08x)\n", descript, OCTOSPIM);
+    LOG_DEBUG(" %6s: 0x%08x (0x%08x)\n", "CR", OCTOSPIM->CR, &OCTOSPIM->CR);
+    LOG_DEBUG(" %6s: 0x%08x (0x%08x)\n", "P1CR", OCTOSPIM->PCR[0], &OCTOSPIM->PCR[0]);
+    LOG_DEBUG(" %6s: 0x%08x (0x%08x)\n", "P2CR", OCTOSPIM->PCR[1], &OCTOSPIM->PCR[1]);
+}
+
+#if 0
+static void _fix_ospim_regs(void)
+{
+    OCTOSPIM->PCR[0] = 0x03010111;
+    OCTOSPIM->PCR[1] = 0x07050333;
+}
+#endif
 /* USER CODE END 0 */
 
 /**
@@ -261,7 +276,7 @@ static void MX_OCTOSPI1_Init(void)
 {
 
   /* USER CODE BEGIN OCTOSPI1_Init 0 */
-
+  _dump_ospim_regs("Before HAL_OSPI_Init");
   /* USER CODE END OCTOSPI1_Init 0 */
 
   OSPIM_CfgTypeDef sOspiManagerCfg = {0};
@@ -287,21 +302,28 @@ static void MX_OCTOSPI1_Init(void)
   hospi1.Init.DelayBlockBypass = HAL_OSPI_DELAY_BLOCK_BYPASSED;
   hospi1.Init.MaxTran = 0;
   hospi1.Init.Refresh = 0;
+  debug_set(DEBUG_PIN_2);
   if (HAL_OSPI_Init(&hospi1) != HAL_OK)
   {
     Error_Handler();
   }
+  debug_clear(DEBUG_PIN_2);
+
+  _dump_ospim_regs("After HAL_OSPI_Init");
+
   sOspiManagerCfg.ClkPort = 1;
   sOspiManagerCfg.DQSPort = 1;
   sOspiManagerCfg.NCSPort = 1;
   sOspiManagerCfg.IOLowPort = HAL_OSPIM_IOPORT_1_LOW;
   sOspiManagerCfg.IOHighPort = HAL_OSPIM_IOPORT_1_HIGH;
+  debug_set(DEBUG_PIN_2);
   if (HAL_OSPIM_Config(&hospi1, &sOspiManagerCfg, HAL_OSPI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
   {
     Error_Handler();
   }
+  debug_clear(DEBUG_PIN_2);
   /* USER CODE BEGIN OCTOSPI1_Init 2 */
-
+  _dump_ospim_regs("After HAL_OSPIM_Config");
   /* USER CODE END OCTOSPI1_Init 2 */
 
 }

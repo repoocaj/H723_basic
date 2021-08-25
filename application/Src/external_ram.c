@@ -103,7 +103,8 @@ static void _dump_regs(const char *descript)
 
     for (uint8_t i = 0; m_regs[i].name != NULL; i++)
     {
-        LOG_DEBUG(" % 6s: 0x%08x\n", m_regs[i].name, (uint32_t) *(p + (m_regs[i].offset / 4)));
+        uint32_t *addr = p + (m_regs[i].offset / 4);
+        LOG_DEBUG(" % 6s: 0x%08x (0x%08x)\n", m_regs[i].name, *addr, addr);
     }
 }
 
