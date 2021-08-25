@@ -58,16 +58,38 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define Ext_RAM_Data_2_Pin GPIO_PIN_2
+#define Ext_RAM_Data_2_GPIO_Port GPIOE
 #define B1_Pin GPIO_PIN_13
 #define B1_GPIO_Port GPIOC
+#define Ext_RAM_Data_3_Pin GPIO_PIN_6
+#define Ext_RAM_Data_3_GPIO_Port GPIOF
+#define Ext_RAM_Data_0_Pin GPIO_PIN_8
+#define Ext_RAM_Data_0_GPIO_Port GPIOF
+#define Ext_RAM_Data_1_Pin GPIO_PIN_9
+#define Ext_RAM_Data_1_GPIO_Port GPIOF
+#define Ext_RAM_Clock_Pin GPIO_PIN_10
+#define Ext_RAM_Clock_GPIO_Port GPIOF
 #define MCO_Pin GPIO_PIN_0
 #define MCO_GPIO_Port GPIOH
+#define Ext_RAM_Data_4_Pin GPIO_PIN_1
+#define Ext_RAM_Data_4_GPIO_Port GPIOC
+#define Ext_RAM_Data_5_Pin GPIO_PIN_2
+#define Ext_RAM_Data_5_GPIO_Port GPIOC
+#define Ext_RAM_Data_6_Pin GPIO_PIN_3
+#define Ext_RAM_Data_6_GPIO_Port GPIOC
+#define Ext_RAM_Data_Strobe_Pin GPIO_PIN_1
+#define Ext_RAM_Data_Strobe_GPIO_Port GPIOA
 #define DBG3_Pin GPIO_PIN_5
 #define DBG3_GPIO_Port GPIOA
 #define DBG4_Pin GPIO_PIN_6
 #define DBG4_GPIO_Port GPIOA
 #define LED_GREEN_Pin GPIO_PIN_0
 #define LED_GREEN_GPIO_Port GPIOB
+#define Ext_RAM_Data_7_Pin GPIO_PIN_10
+#define Ext_RAM_Data_7_GPIO_Port GPIOE
+#define Ext_RAM_CS_Pin GPIO_PIN_11
+#define Ext_RAM_CS_GPIO_Port GPIOE
 #define LED_RED_Pin GPIO_PIN_14
 #define LED_RED_GPIO_Port GPIOB
 #define STLK_VCP_RX_Pin GPIO_PIN_8

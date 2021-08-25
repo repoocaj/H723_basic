@@ -79,6 +79,159 @@ void HAL_MspInit(void)
 }
 
 /**
+* @brief OSPI MSP Initialization
+* This function configures the hardware resources used in this example
+* @param hospi: OSPI handle pointer
+* @retval None
+*/
+void HAL_OSPI_MspInit(OSPI_HandleTypeDef* hospi)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
+  if(hospi->Instance==OCTOSPI1)
+  {
+  /* USER CODE BEGIN OCTOSPI1_MspInit 0 */
+
+  /* USER CODE END OCTOSPI1_MspInit 0 */
+  /** Initializes the peripherals clock
+  */
+    PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_OSPI;
+    PeriphClkInitStruct.OspiClockSelection = RCC_OSPICLKSOURCE_D1HCLK;
+    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
+    {
+      Error_Handler();
+    }
+
+    /* Peripheral clock enable */
+    __HAL_RCC_OCTOSPIM_CLK_ENABLE();
+    __HAL_RCC_OSPI1_CLK_ENABLE();
+
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+    __HAL_RCC_GPIOF_CLK_ENABLE();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    /**OCTOSPI1 GPIO Configuration
+    PE2     ------> OCTOSPIM_P1_IO2
+    PF6     ------> OCTOSPIM_P1_IO3
+    PF8     ------> OCTOSPIM_P1_IO0
+    PF9     ------> OCTOSPIM_P1_IO1
+    PF10     ------> OCTOSPIM_P1_CLK
+    PC1     ------> OCTOSPIM_P1_IO4
+    PC2_C     ------> OCTOSPIM_P1_IO5
+    PC3_C     ------> OCTOSPIM_P1_IO6
+    PA1     ------> OCTOSPIM_P1_DQS
+    PE10     ------> OCTOSPIM_P1_IO7
+    PE11     ------> OCTOSPIM_P1_NCS
+    */
+    GPIO_InitStruct.Pin = Ext_RAM_Data_2_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF9_OCTOSPIM_P1;
+    HAL_GPIO_Init(Ext_RAM_Data_2_GPIO_Port, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = Ext_RAM_Data_3_Pin|Ext_RAM_Data_0_Pin|Ext_RAM_Data_1_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF10_OCTOSPIM_P1;
+    HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = Ext_RAM_Clock_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF9_OCTOSPIM_P1;
+    HAL_GPIO_Init(Ext_RAM_Clock_GPIO_Port, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = Ext_RAM_Data_4_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF10_OCTOSPIM_P1;
+    HAL_GPIO_Init(Ext_RAM_Data_4_GPIO_Port, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = Ext_RAM_Data_5_Pin|Ext_RAM_Data_6_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF4_OCTOSPIM_P1;
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = Ext_RAM_Data_Strobe_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF12_OCTOSPIM_P1;
+    HAL_GPIO_Init(Ext_RAM_Data_Strobe_GPIO_Port, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = Ext_RAM_Data_7_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF10_OCTOSPIM_P1;
+    HAL_GPIO_Init(Ext_RAM_Data_7_GPIO_Port, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = Ext_RAM_CS_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF11_OCTOSPIM_P1;
+    HAL_GPIO_Init(Ext_RAM_CS_GPIO_Port, &GPIO_InitStruct);
+
+  /* USER CODE BEGIN OCTOSPI1_MspInit 1 */
+
+  /* USER CODE END OCTOSPI1_MspInit 1 */
+  }
+
+}
+
+/**
+* @brief OSPI MSP De-Initialization
+* This function freeze the hardware resources used in this example
+* @param hospi: OSPI handle pointer
+* @retval None
+*/
+void HAL_OSPI_MspDeInit(OSPI_HandleTypeDef* hospi)
+{
+  if(hospi->Instance==OCTOSPI1)
+  {
+  /* USER CODE BEGIN OCTOSPI1_MspDeInit 0 */
+
+  /* USER CODE END OCTOSPI1_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_OCTOSPIM_CLK_DISABLE();
+    __HAL_RCC_OSPI1_CLK_DISABLE();
+
+    /**OCTOSPI1 GPIO Configuration
+    PE2     ------> OCTOSPIM_P1_IO2
+    PF6     ------> OCTOSPIM_P1_IO3
+    PF8     ------> OCTOSPIM_P1_IO0
+    PF9     ------> OCTOSPIM_P1_IO1
+    PF10     ------> OCTOSPIM_P1_CLK
+    PC1     ------> OCTOSPIM_P1_IO4
+    PC2_C     ------> OCTOSPIM_P1_IO5
+    PC3_C     ------> OCTOSPIM_P1_IO6
+    PA1     ------> OCTOSPIM_P1_DQS
+    PE10     ------> OCTOSPIM_P1_IO7
+    PE11     ------> OCTOSPIM_P1_NCS
+    */
+    HAL_GPIO_DeInit(GPIOE, Ext_RAM_Data_2_Pin|Ext_RAM_Data_7_Pin|Ext_RAM_CS_Pin);
+
+    HAL_GPIO_DeInit(GPIOF, Ext_RAM_Data_3_Pin|Ext_RAM_Data_0_Pin|Ext_RAM_Data_1_Pin|Ext_RAM_Clock_Pin);
+
+    HAL_GPIO_DeInit(GPIOC, Ext_RAM_Data_4_Pin|Ext_RAM_Data_5_Pin|Ext_RAM_Data_6_Pin);
+
+    HAL_GPIO_DeInit(Ext_RAM_Data_Strobe_GPIO_Port, Ext_RAM_Data_Strobe_Pin);
+
+  /* USER CODE BEGIN OCTOSPI1_MspDeInit 1 */
+
+  /* USER CODE END OCTOSPI1_MspDeInit 1 */
+  }
+
+}
+
+/**
 * @brief UART MSP Initialization
 * This function configures the hardware resources used in this example
 * @param huart: UART handle pointer
