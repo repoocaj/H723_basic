@@ -8,7 +8,8 @@ get_filename_component(PRJ_BASENAME ${LOCAL_PROJ_NAME} NAME_WE)
 
 # -------------------------------------------------------------- FIND SRC FILES
 if(${CMAKE_SYSTEM_PROCESSOR} MATCHES arm)
-    file(GLOB_RECURSE CSRC ${CMAKE_CURRENT_LIST_DIR}/../stm32cubemx/*.s
+    file(GLOB_RECURSE CSRC ${CMAKE_CURRENT_LIST_DIR}/*.c
+                           ${CMAKE_CURRENT_LIST_DIR}/../stm32cubemx/*.s
                            ${CMAKE_CURRENT_LIST_DIR}/../stm32cubemx/Core/Src/*.c)
 endif()
 

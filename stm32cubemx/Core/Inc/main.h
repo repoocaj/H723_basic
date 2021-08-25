@@ -80,8 +80,8 @@ void Error_Handler(void);
 #define Ext_RAM_Data_6_GPIO_Port GPIOC
 #define Ext_RAM_Data_Strobe_Pin GPIO_PIN_1
 #define Ext_RAM_Data_Strobe_GPIO_Port GPIOA
-#define DBG3_Pin GPIO_PIN_5
-#define DBG3_GPIO_Port GPIOA
+#define Ext_RAM_Reset_Pin GPIO_PIN_5
+#define Ext_RAM_Reset_GPIO_Port GPIOA
 #define DBG4_Pin GPIO_PIN_6
 #define DBG4_GPIO_Port GPIOA
 #define LED_GREEN_Pin GPIO_PIN_0
@@ -102,6 +102,8 @@ void Error_Handler(void);
 #define SWCLK_GPIO_Port GPIOA
 #define SWO_Pin GPIO_PIN_3
 #define SWO_GPIO_Port GPIOB
+#define DBG3_Pin GPIO_PIN_5
+#define DBG3_GPIO_Port GPIOB
 #define DBG1_Pin GPIO_PIN_8
 #define DBG1_GPIO_Port GPIOB
 #define DBG2_Pin GPIO_PIN_9

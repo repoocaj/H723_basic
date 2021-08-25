@@ -88,6 +88,57 @@ extern "C" {
     } while(0)
 
 /**
+ * @brief   Macro used to test a return code from a STM32 function that uses an
+ *          handle.
+ *
+ * STM32 APIs that have a handle style interface usually have a State and
+ * ErrorCode members in the structure that the handle points to.  This can be
+ * used to provide more information in the case of an error.
+ *
+ * If the handle doesn't provide those members, you'll get a compile error
+ * trying to use the macro.
+ *
+ * An error will be logged if the actual doesn't match the expected.  The macro
+ * will then exit the calling function with the given return code.
+ *
+ * @param[in]   expected    The return code to expect if everything is OK.
+ * @param[in]   actual      The actual code returned from a function.
+ * @param[in]   handle      The handle for the API.
+ * @param[in]   ret         The value to return from this function when the
+ *                          actual return code doesn't match the expected
+ *                          value.
+ *
+ * @note    If used in a function that returns void, don't pass a 'ret'
+ *          parameter:
+ *
+ *              VALIDATE_EXIT(0, 1, );
+ */
+#define VALIDATE_HANDLE(expected, actual, handle, ret)                      \
+    do                                                                      \
+    {                                                                       \
+        if ((expected) != (actual))                                         \
+        {                                                                   \
+            LOG_ERROR("%s@%d: %d, state: 0x%02x (%d), errorcode: 0x%02x (%d)\n",    \
+                __func__, __LINE__, (actual),                               \
+                (handle)->State, (handle)->State,                           \
+                (handle)->ErrorCode, (handle)->ErrorCode);                  \
+            return ret;                                                     \
+        }                                                                   \
+    } while(0)
+
+#define VALIDATE_HANDLE_NOEXIT(expected, actual, handle)                    \
+    do                                                                      \
+    {                                                                       \
+        if ((expected) != (actual))                                         \
+        {                                                                   \
+            LOG_ERROR("%s@%d: %d, state: 0x%02x (%d), errorcode: 0x%02x (%d)\n",    \
+                __func__, __LINE__, (actual),                               \
+                (handle)->State, (handle)->State,                           \
+                (handle)->ErrorCode, (handle)->ErrorCode);                  \
+        }                                                                   \
+    } while(0)
+
+/**
  * @brief   Tests if a return code was the expected value.
  *
  * If the values don't match, an error message is logged.  It also sets the
@@ -112,6 +163,14 @@ extern "C" {
 
 #ifdef __cplusplus
 }
+#endif
+
+#ifndef   MIN
+  #define MIN(a, b)         (((a) < (b)) ? (a) : (b))
+#endif
+
+#ifndef   MAX
+  #define MAX(a, b)         (((a) > (b)) ? (a) : (b))
 #endif
 
 #endif  // __X_UTILS_H
