@@ -104,7 +104,7 @@ static void _unit_test(void)
 #if UNIT_TEST
     int i;
 
-    LOG_TEST("Each debug pin should produce two 20 ms pulses that are 10 ms apart\n");
+    LOG_TEST("Each debug pin should produce two 2 ms pulses that are 1 ms apart\n");
 
     // First pulse is via debug_toggle()
 
@@ -115,7 +115,7 @@ static void _unit_test(void)
     }
 
     // Delay
-    HAL_Delay(20);
+    HAL_Delay(2);
 
     // Set low
     for (i = DEBUG_PIN_Start; i < DEBUG_PIN_End; i++)
@@ -124,7 +124,7 @@ static void _unit_test(void)
     }
 
     // Delay
-    HAL_Delay(10);
+    HAL_Delay(1);
 
     // Second pulse is via debug_set() followed by debug_clear()
 
@@ -135,7 +135,7 @@ static void _unit_test(void)
     }
 
     // Delay
-    HAL_Delay(20);
+    HAL_Delay(2);
 
     // Set low
     for (i = DEBUG_PIN_Start; i < DEBUG_PIN_End; i++)
